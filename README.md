@@ -1,2 +1,25 @@
 # aspnet-mentoring
 Resources for mentoring new .net developers
+
+API:
+list of all memes:
+api/memes (get) 
+response :
+    "data": {
+        "memes": [
+            {
+                "id": "61579",
+                "name": "One Does Not Simply",
+                "url": "http://i.imgflip.com/1bij.jpg",
+                "width": 568,
+                "height": 335
+            },
+            {
+                "id": "101470",
+                "name": "Ancient Aliens",
+                "url": "http://i.imgflip.com/26am.jpg",
+                "width": 500,
+                "height": 437
+            }
+        ]
+     }
