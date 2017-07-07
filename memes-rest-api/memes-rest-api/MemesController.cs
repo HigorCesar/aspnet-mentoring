@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Threading;
 
 namespace memes_rest_api.Controllers
-{
+{  
     public class GetMemesResponse
     {
         public void AddMeme(Meme value){
@@ -64,28 +68,15 @@ namespace memes_rest_api.Controllers
     }
     [Route("api/[controller]")]
     public class MemesController : Controller 
-    {   
-        GetMemesResponse memes;
-		// GET api/memes
-		[HttpGet]
-        public GetMemesResponse Get()
+    {
+        private HttpClient httpClient;
+		GetMemesResponse memes;
+
+		public MemesController()
         {
-			
-			//response.Data.Memes = new[] { new Meme{
-                //    Id="1234",
-                //    Name="artito",
-                //    Url="http://i.imgflip.com/1bij.jpg",
-                //    Width= 456,
-                //    Height=400
-
-                //} };
-
-            return memes;
-        }
-
-        public MemesController()
-		{
-            memes = new GetMemesResponse();
+            httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri("https://api.imgflip.com/");
+			memes = new GetMemesResponse();
 			memes.AddMeme(new Meme
 			{
 				Id = "1234",
@@ -95,6 +86,32 @@ namespace memes_rest_api.Controllers
 				Height = 400
 
 			});
+		}
+
+
+		// GET api/memes
+		[HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var response = await httpClient.GetAsync("https://api.imgflip.com/get_memes");
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK){
+                var content = await response.Content.ReadAsStringAsync();
+                var memesAll = JsonConvert.DeserializeObject(content);
+                return this.Ok(content);
+            } else {
+                return this.BadRequest("try again");
+            }
+			//response.Data.Memes = new[] { new Meme{
+                //    Id="1234",
+                //    Name="artito",
+                //    Url="http://i.imgflip.com/1bij.jpg",
+                //    Width= 456,
+                //    Height=400
+
+                //} };
+
+
         }
     }
 }
