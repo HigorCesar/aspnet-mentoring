@@ -4,10 +4,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Linq;
+using memes_rest_api.Domain;
 
 namespace memes_rest_api
 {
-    public class ImageFlipService
+    public class ImageFlipService : IMemeSource
     {
         class FlipImageMeme
         {

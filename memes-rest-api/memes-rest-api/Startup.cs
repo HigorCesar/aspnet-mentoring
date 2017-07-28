@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using memes_rest_api.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,8 @@ namespace memes_rest_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IMemeSource memeSource = new ImageFlipService();
+            services.AddTransient<IMemeSource>((serviceProvider) => memeSource);
             // Add framework services.
             services.AddMvc();
         }

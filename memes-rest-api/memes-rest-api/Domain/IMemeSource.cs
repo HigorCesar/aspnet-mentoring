@@ -1,7 +1,14 @@
 ﻿using System;
-namespace memes-rest-api.Domain
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace memes_rest_api.Domain
 {
-	public interface IMemeSource
-{
-}
+    public interface IMemeSource
+    {
+        Task<IEnumerable<Meme>> GetMemes();
+
+
+    }
+
 }

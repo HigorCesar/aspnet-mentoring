@@ -30,5 +30,10 @@ namespace memes_rest_api
 			get;
 			set;
 		}
+		public int Price
+		{
+			get;
+			set;
+		}
 	}
 }
