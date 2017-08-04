@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 namespace memes_rest_api
 {
 	public class Meme

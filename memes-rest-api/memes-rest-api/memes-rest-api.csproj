@@ -21,4 +21,9 @@
     <Compile Remove="New Folder\ImageFlipService.cs" />
     <Compile Remove="New Folder\Meme.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
