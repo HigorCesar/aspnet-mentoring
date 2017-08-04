@@ -27,29 +27,25 @@ namespace memes_rest_api.Controllers
             var response = new GetMemesResponse();
             var memes = await memeSource.GetMemes();
 
-            foreach (var item in memes)
-            {
-                if (!String.IsNullOrEmpty(description))
-                {
-                       if (item.Description.ToLowerInvariant().Contains(description.ToLowerInvariant()))
-                    {
-                        response.AddMeme(item);
-                    }
-                }
-                else if (width > 0) 
-                {
-                    if (item.Width == width)
-                    {
-                        response.AddMeme(item);
-                    }
-                } 
-                else 
-                {
-                    response.AddMeme(item);
-                }
-
+            if (!String.IsNullOrEmpty(description))
+            {  
+                IEnumerable<Meme> desc = await memeSource.GetByDescription(description);
+                desc.ToList().ForEach(i => response.AddMeme(i));
+                return Ok(response);
             }
+
+            if (width > 0)
+            {
+                IEnumerable<Meme> wid = await memeSource.GetByWidth(width);
+                wid.ToList().ForEach(i => response.AddMeme(i));
+                return Ok(response);
+            }
+
+            IEnumerable<Meme> allMemes = await memeSource.GetMemes();
+            allMemes.ToList().ForEach(i => response.AddMeme(i));
             return Ok(response);
+
+
         }
     }
 }

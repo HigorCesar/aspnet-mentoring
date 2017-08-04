@@ -56,5 +56,17 @@ namespace memes_rest_api
             return null;
 
         }
+
+        public async Task<IEnumerable<Meme>> GetByDescription(string description)
+        {
+            var memes = await GetMemes();
+            return memes.Where(item => item.Description.ToLowerInvariant().Contains(description.ToLowerInvariant()));
+        }
+
+        public async Task<IEnumerable<Meme>> GetByWidth(int width)
+        {
+            var memes = await GetMemes();
+            return memes.Where(item => item.Width > width);
+        }
     }
 }
